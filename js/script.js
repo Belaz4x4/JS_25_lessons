@@ -125,27 +125,20 @@ const appData = {
 
         this.showResult()
         
+        while (screens.length > 1) {
+            screens[screens.length -1].remove()
+            screens = document.querySelectorAll('.screen')
+        }
 
-        // allTextInputs.forEach((item) => {
-        //     item.value = ''
-        // })
+        screenBtn.style.display = 'block'
 
-        // periodSelect.value = 1
-        // periodAmount.textContent = periodSelect.value;
+        otherItems.forEach((item) => {
+            item.querySelector('.custom-checkbox').checked = false
+        })
 
-        // while (incomeItems.length > 1) {
-        //     incomeItems[incomeItems.length -1].remove()
-        //     incomeItems = document.querySelectorAll('.income-items')
-        // }
-
-        // while (expensesItems.length > 1) {
-        //     expensesItems[expensesItems.length -1].remove()
-        //     expensesItems = document.querySelectorAll('.income-items')
-        // }
-
-        // addExpensesPlus.style.display = 'block'
-        // addIncomePlus.style.display = 'block'
-
+        CMSOpen.checked = false
+        range.value = this.rollback
+        rangeValue.textContent = range.value
     },
 
     validateInput: function (input, validCharacters) {
@@ -160,8 +153,6 @@ const appData = {
         screenAmount.addEventListener('input', function () {
             appData.validateInput(screenAmount, digits)
         });
-
-        // startBtn.disabled = true
 
         startBtn.addEventListener('click', () => {
             appData.start.call(appData)
@@ -181,7 +172,7 @@ const appData = {
         
     },
 
-    checkScreens: function () { // написать проверку для включения кнопки рассчитать.
+    checkScreens: function () {
         let dataEntered = false
         
         screens.forEach((item) => {
@@ -223,8 +214,8 @@ const appData = {
         appData.switchElement(screenBtn)
 
         otherItems.forEach((item) => {
-            let otherItemscheckbox = item.querySelector('.custom-checkbox')
-            appData.switchElement(otherItemscheckbox)
+            let otherItemsCheckbox = item.querySelector('.custom-checkbox')
+            appData.switchElement(otherItemsCheckbox)
         })
 
         appData.switchElement(CMSOpen)
@@ -239,35 +230,10 @@ const appData = {
         {
             element.disabled = false
         }
-    }
-
+    },
 };
 
 appData.addListeners()
 
-
-
-// appData.start()
-// console.log(appData.allServicePrices);
-
-
-
-// checkInput(salaryAmount, digits)
-// checkInput(incomeItems[0].querySelector('.income-title'), russianLetters);
-// checkInput(incomeItems[0].querySelector('.income-amount'), digits);
-// checkInput(expensesItems[expensesItems.length - 1].querySelector('.expenses-title'), russianLetters);
-// checkInput(expensesItems[expensesItems.length - 1].querySelector('.expenses-amount'), digits);
-
-// additionalIncomeItems.forEach((item) => {
-//     checkInput(item, russianLetters);
-// });
-
-// checkInput(addExpensesItem, russianLetters);
-// checkInput(targetAmount, digits);
-
-// start.disabled = true
-// salaryAmount.addEventListener('input', () => {
-//     if (salaryAmount.value !== '') start.disabled = false
-// })
 
 
