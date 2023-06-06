@@ -14,6 +14,7 @@ let startBtn            = document.getElementById('start'),
     totalCost           = document.querySelector('#total-full-count'),
     rollbackCost        = document.querySelector('#total-count-rollback'),
     screenOptionsAmount = screens[0].querySelectorAll('.main-controls__select option').length;
+    CMSOpen             = document.querySelector('#cms-open')
 
 const   russianLetters    = /^[\u0400-\u04FF\s.,!?;:()"'-]+$/,
         digits            = /\d/;
@@ -30,12 +31,13 @@ const appData = {
         if (this.checkScreens()) {
             this.getScreenPrice()
             this.getScreensAmount()
-            this.getAllServicePrices();
-            this.getFullPrice(); 
-            this.getServicePercentPrice();
+            this.getAllServicePrices()
+            this.getFullPrice()
+            this.getServicePercentPrice()
             this.switchBtns()
+            this.switchInputs()
     
-            this.showResult();
+            this.showResult()
         }
     },
   
@@ -119,6 +121,7 @@ const appData = {
         
         range.value = '0'
         this.switchBtns()
+        this.switchInputs()
 
         this.showResult()
         
@@ -206,6 +209,38 @@ const appData = {
             resetBtn.style.display = 'none'
         }
     },
+
+    switchInputs: function () {
+
+        screens.forEach((item) => {
+            let screenInput = item.querySelector('input')
+            appData.switchElement(screenInput)
+
+            let screenSelect = item.querySelector('select')
+            appData.switchElement(screenSelect)
+        })
+
+        appData.switchElement(screenBtn)
+
+        otherItems.forEach((item) => {
+            let otherItemscheckbox = item.querySelector('.custom-checkbox')
+            appData.switchElement(otherItemscheckbox)
+        })
+
+        appData.switchElement(CMSOpen)
+        appData.switchElement(range)
+    },
+
+    switchElement: function(element) {
+        if (element.disabled === false) 
+        {
+            element.disabled = true
+        } else 
+        {
+            element.disabled = false
+        }
+    }
+
 };
 
 appData.addListeners()
