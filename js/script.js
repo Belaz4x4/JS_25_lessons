@@ -1,12 +1,13 @@
 'use strict';
 
-function DomElement(height, width, bg, fontSize) {
+function DomElement(height='auto', width='auto', bg='fff', fontSize='1rem') {
     this.height = height
     this.width = width  
     this.bg = bg  
     this.fontSize = fontSize
+    this.defaultStyle = `height: ${this.height}; width: ${this.width}; background: ${this.bg}; font-size: ${this.fontSize}`
 
-    this.createDomElement = function(selector, text='') {
+    this.createDomElement = function(selector, text='', style=this.defaultStyle) {
         let newElement = ''
         if (selector.startsWith('.')) 
         {
@@ -18,7 +19,7 @@ function DomElement(height, width, bg, fontSize) {
             newElement.id = selector.slice(1)
         }
 
-        newElement.style.cssText = `height: ${this.height}; width: ${this.width}; background: ${this.bg}; font-size: ${this.fontSize}`
+        newElement.style.cssText = style
         newElement.innerText = text
         
         const body = document.querySelector('body')
@@ -26,7 +27,30 @@ function DomElement(height, width, bg, fontSize) {
     }
 }
 
-const addElement = new DomElement('50px', '600px', '#48a108', '15')
-addElement.createDomElement('#best', 'какой-то текст')
-addElement.createDomElement('.block', 'какой-то блок')
+document.addEventListener('DOMContentLoaded', () => {
+    const addElement = new DomElement()
+    addElement.createDomElement('.block', '', 'height: 100px; width: 100px; background: #4e9403; position: absolute;')
+
+    const square = document.querySelector('.block')
+    let top = 0
+    let left = 0
+
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight') {
+            left += 10
+            square.style.left =  left + 'px'
+        } else if (event.key === 'ArrowLeft') {
+            left -= 10
+            square.style.left =  left + 'px'
+        } else if (event.key === 'ArrowUp') {
+            top -= 10
+            square.style.top =  top + 'px'
+        } else if (event.key === 'ArrowDown') {
+            top += 10
+            square.style.top =  top + 'px'
+        }
+    })
+})
+
 
